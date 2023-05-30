@@ -16,6 +16,7 @@ function changeToGame() {
 }
 
 function handleCellClick(e) {
+    if (crossWin || circleWin || gameBoardCells.every(cell => cell.hasChildNodes())) return;
     if (currentPlayer === 'cross') {
         const crossMark = document.createElement('div');
         crossMark.classList.add(currentPlayer);
