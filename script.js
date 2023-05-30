@@ -11,8 +11,8 @@ let crossWin = false;
 let circleWin = false; 
 
 function changeToGame() {
-    gameStartContainer.classList.toggle('hide');
-    gameBoardContainer.classList.toggle('hide');
+    gameStartContainer.classList.add('hide');
+    gameBoardContainer.classList.remove('hide');
 }
 
 function handleCellClick(e) {
@@ -69,7 +69,7 @@ function winner() {
             continue;
         }
     }
-    setTimeout(getWinningMessage,500);
+    setTimeout(getWinningMessage,1000);
 }
 
 function getWinningMessage() {
@@ -81,8 +81,8 @@ function getWinningMessage() {
         } else {
             gameOverText.textContent = 'Draw!';
         }
-        gameOverContainer.classList.toggle('hide');
-        gameBoardContainer.classList.toggle('hide');
+        gameOverContainer.classList.remove('hide');
+        gameBoardContainer.classList.add('hide');
     };
 }
 
@@ -95,8 +95,8 @@ function resetGame() {
         cell.addEventListener('click', handleCellClick);
     }
     );
-    gameOverContainer.classList.toggle('hide');
-    gameBoardContainer.classList.toggle('hide');
+    gameOverContainer.classList.add('hide');
+    gameBoardContainer.classList.remove('hide');
 }
 
 gameStartButton.addEventListener('click', changeToGame);
