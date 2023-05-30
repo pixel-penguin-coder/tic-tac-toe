@@ -23,18 +23,22 @@ function handleCellClick(e) {
         e.target.removeEventListener('click', handleCellClick);
         currentPlayer = currentPlayer === 'circle' ? 'cross' : 'circle';
     }
-    setTimeout(winner, 500);
+    winner();
     setTimeout(circleTurn, 1000);
 }
 
 function circleTurn() {
-    const availableCellId = gameBoardCells.filter(cell => !cell.hasChildNodes()).map(cell => cell.id);
-    const randomCellId = availableCellId[Math.floor(Math.random() * availableCellId.length)];
-    const circleMark = document.createElement('div');
-    circleMark.classList.add(currentPlayer);
-    document.getElementById(randomCellId)?.appendChild(circleMark);
-    currentPlayer = currentPlayer === 'circle' ? 'cross' : 'circle';
-    setTimeout(winner, 500);
+    if (currentPlayer === 'cross') return;
+    else if (currentPlayer === 'circle') {
+        const availableCellId = gameBoardCells.filter(cell => !cell.hasChildNodes()).map(cell => cell.id);
+        const randomCellId = availableCellId[Math.floor(Math.random() * availableCellId.length)];
+        const circleMark = document.createElement('div');
+        circleMark.classList.add(currentPlayer);
+        document.getElementById(randomCellId)?.appendChild(circleMark);
+        document.getElementById(randomCellId)?.removeEventListener('click', handleCellClick);
+        currentPlayer = currentPlayer === 'circle' ? 'cross' : 'circle';
+    }
+    winner();
 }
 
 function winner() {
@@ -61,9 +65,11 @@ function winner() {
         } else if (winningCombination[i].every(cell => circleMarkId.includes(cell.toString()))) {
             circleWin = true;
             break;
-        } 
+        } else {
+            continue;
+        }
     }
-    getWinningMessage();
+    setTimeout(getWinningMessage,500);
 }
 
 function getWinningMessage() {
@@ -77,7 +83,7 @@ function getWinningMessage() {
         }
         gameOverContainer.classList.toggle('hide');
         gameBoardContainer.classList.toggle('hide');
-    }
+    };
 }
 
 function resetGame() {
