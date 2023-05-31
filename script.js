@@ -10,6 +10,10 @@ let currentPlayer = 'cross';
 let crossWin = false;
 let circleWin = false; 
 
+gameStartButton.addEventListener('click', changeToGame);
+gameBoardCells.forEach(cell => cell.addEventListener('click', handleCellClick));
+gameOverButton.addEventListener('click', resetGame);
+
 function changeToGame() {
     gameStartContainer.classList.add('hide');
     gameBoardContainer.classList.remove('hide');
@@ -91,6 +95,3 @@ function resetGame() {
     gameBoardContainer.classList.remove('hide');
 }
 
-gameStartButton.addEventListener('click', changeToGame);
-gameBoardCells.forEach(cell => cell.addEventListener('click', handleCellClick));
-gameOverButton.addEventListener('click', resetGame);
