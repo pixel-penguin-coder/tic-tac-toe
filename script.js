@@ -53,24 +53,15 @@ function winner() {
         [0, 4, 8],
         [2, 4, 6],
     ];
-    
-    const crossMark = [...document.querySelectorAll('.cross')];
-    const circleMark = [...document.querySelectorAll('.circle')];
-    const crossMarkId = crossMark.map(cell => cell.parentNode.id);
-    const circleMarkId = circleMark.map(cell => cell.parentNode.id);
 
-    for (let i = 0; i < winningCombination.length; i++) {
-        if (winningCombination[i].every(cell => crossMarkId.includes(cell.toString()))) {
-            crossWin = true;
-            break;
-        } else if (winningCombination[i].every(cell => circleMarkId.includes(cell.toString()))) {
-            circleWin = true;
-            break;
-        } else {
-            continue;
-        }
-    }
-    setTimeout(getWinningMessage,1000);
+    const getMarkIds = (mark) => [...document.querySelectorAll(`.${mark}`)].map(cell => cell.parentNode.id);
+    const crossMarkIds = getMarkIds('cross');
+    const circleMarkIds = getMarkIds('circle');
+
+    const checkWin = (markIds) => winningCombination.some(combination => combination.every(cell => markIds.includes(cell.toString())));
+    crossWin = checkWin(crossMarkIds);
+    circleWin = checkWin(circleMarkIds);
+    setTimeout(getWinningMessage,500);
 }
 
 function getWinningMessage() {
